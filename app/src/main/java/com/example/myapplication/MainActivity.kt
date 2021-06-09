@@ -29,20 +29,20 @@ class MainActivity : AppCompatActivity() {
             this.viewModel = vm
         }
         vm.binding = binding
-        Log.i("MainActivity", "x: ${binding.joystickCenter.x}, y: ${binding.joystickCenter.y}")
-        this.binding.joystickCenter.setOnTouchListener { v, event ->
-            var x = 0F
-            var y = 0F
+        this.binding.joystick.setOnTouchListener { v, event ->
+            val offset = 1000
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    Log.i("MainActivity", "image Position is : ${binding.joystickCenter.x} , ${binding.joystickCenter.y} and View is : ${v.x}, ${v.y}")
+                    Log.i("MainActivity", "image Position is : ${event.x} , ${event.y} and View is : ${v.x}, ${v.y}")
                 }
                 MotionEvent.ACTION_MOVE -> {
-                    x = event.x
-                    y = event.y
-                    v.animate().x(event.rawX).y(event.rawY).setDuration(0).start();
-//                    vm.joyStickOnChanged(x, y)
-                    Log.i("MainActivity", "Move coordination is : $x , $y and View is : ${v.x}, ${v.y}")
+                    val y = event.y
+                    val x = event.x
+                    normal(x,y)
+                    binding.joystickCenter.animate().x(x ).y(y + offset).setDuration(0).start()
+                }
+                MotionEvent.ACTION_UP -> {
+
                 }
             }
             true
@@ -70,6 +70,14 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
+    private fun normal(x: Float, y:Float): Pair<Float, Float>{
+        var centerX = 550
+        var centerY = 550
+        var radius = 500
+        var currX = (x-550)/500
+        var currY = (y-550)/500
+        Log.i("normal", "normalize value : $currX, $currY")
+        return Pair(currX, currY)
+    }
 }
 
