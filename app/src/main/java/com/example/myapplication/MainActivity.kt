@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initComp() {
         binding.rudderSeek.progress = 50
-        binding.throttleSeek.progress = 50
+        binding.throttleSeek.progress = 0
         binding.throttleSeek.rotation = 90F
     }
 
@@ -74,6 +74,7 @@ class MainActivity : AppCompatActivity() {
                     "Progress is: " + seek.progress + "%",
                     Toast.LENGTH_SHORT
                 ).show()
+                Log.i("Throttle", "${seek.progress}")
                 vm.setThrottle(seek.progress)
             }
         })
@@ -96,6 +97,7 @@ class MainActivity : AppCompatActivity() {
                     "Progress is: " + seek.progress + "%",
                     Toast.LENGTH_SHORT
                 ).show()
+                Log.i("Rudder", "${seek.progress}")
                 vm.setRudder(seek.progress)
             }
         })

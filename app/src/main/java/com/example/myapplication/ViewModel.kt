@@ -11,7 +11,9 @@ class ViewModel() : ViewModel() {
     val ip = MutableLiveData<String>()
     val port = MutableLiveData<String>()
     private var model: Model = Model()
-    var connected = model.connected
+
+    @Volatile
+    var connected = false
     lateinit var binding: ActivityMainBinding
 
     fun connect() {
@@ -20,13 +22,15 @@ class ViewModel() : ViewModel() {
             binding.connectButton.visibility = View.INVISIBLE
             binding.disconnectButton.visibility = View.VISIBLE
             val modelThread = Thread {
-                model.connect(ip.value.toString(), port.value.toString().toInt())
+                connected = model.connect(ip.value.toString(), port.value.toString().toInt())
             }
             modelThread.start()
         }
     }
 
     fun disconnect() {
+        binding.connectButton.visibility = View.VISIBLE
+        binding.disconnectButton.visibility = View.INVISIBLE
         model.disconnect()
     }
 
@@ -37,18 +41,30 @@ class ViewModel() : ViewModel() {
         val currX = (x - centerX) / radius
         val currY = (y - centerY) / radius
         Log.i("normal", "normalize value : $currX, $currY")
-        if (connected)
-            model.setJoyStick(currX, currY)
+        if (connected) {
+            Thread {
+                model.setJoyStick(currX.toDouble(), currY.toDouble())
+            }.start()
+        }
     }
 
     fun setThrottle(throttle: Int) {
-        if (connected)
-            model.setThrottle((throttle - 50) / 50)
+        if (connected) {
+            Thread{
+                var tmp =  throttle.toDouble() / (100).toDouble()
+                Log.i("Throttle", "$tmp" )
+                model.setThrottle(tmp)
+            }.start()
+        }
     }
 
     fun setRudder(rudder: Int) {
-        if (connected)
-            model.setRudder((rudder - 50) / 50)
+        if (connected){
+            Thread{
+                var tmp =  (rudder - 50).toDouble() / (50).toDouble()
+                model.setRudder(tmp)
+            }.start()
+        }
     }
 
     private fun isValid(x: Float, y: Float): Boolean {
