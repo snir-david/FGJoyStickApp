@@ -25,8 +25,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Log.i("MainActivity", "app Started")
+        //creating VM for binding data
         vm = ViewModelProvider(this).get(ViewModel::class.java)
+        //binding VM with View
         binding = DataBindingUtil.setContentView<ActivityMainBinding?>(
             this, R.layout.activity_main
         ).apply {
@@ -34,7 +35,9 @@ class MainActivity : AppCompatActivity() {
             this.viewModel = vm
         }
         vm.binding = binding
+        //set on - onTouch Listener for joystick movement
         this.binding.joystick.setOnTouchListener { v, event ->
+            //offset for Y AXIS
             val offset = 1000
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -43,6 +46,7 @@ class MainActivity : AppCompatActivity() {
                 MotionEvent.ACTION_MOVE -> {
                     val y = event.y
                     val x = event.x
+                    //check if new x and y are in joystick circle
                     if (inBound(x, y)) {
                         vm.setJoyStick(x, y)
                         binding.joystickCenter.animate().x(x).y(y + offset).setDuration(0).start()
@@ -54,18 +58,23 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+        //binding throttle and rudder
         throttleBinding()
         rudderBinding()
+        //initialize component
         initComp()
     }
 
     private fun initComp() {
+        //setting rudder to middle
         binding.rudderSeek.progress = 50
         binding.throttleSeek.progress = 0
+        //rotate throttle seek bar
         binding.throttleSeek.rotation = 90F
     }
-
+    /*** Binding seek progress with throttle value***/
     private fun throttleBinding() {
+        //setting up onChange Listener for throttle
         binding.throttleSeek.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(
@@ -76,19 +85,14 @@ class MainActivity : AppCompatActivity() {
 
             override fun onStartTrackingTouch(seek: SeekBar) {}
             override fun onStopTrackingTouch(seek: SeekBar) {
-                // write custom code for progress is stopped
-                Toast.makeText(
-                    this@MainActivity,
-                    "Progress is: " + seek.progress + "%",
-                    Toast.LENGTH_SHORT
-                ).show()
-                Log.i("Throttle", "${seek.progress}")
                 vm.setThrottle(seek.progress)
             }
         })
     }
 
+    /*** Binding seek progress with rudder value***/
     private fun rudderBinding() {
+        //setting up onChange Listener for rudder
         binding.rudderSeek.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(
@@ -110,9 +114,11 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
+    /*** checking if new joystick position is valid***/
     private fun inBound(x: Float, y: Float): Boolean {
+        //calculating distance between current point to the middle of joystick center
         val result = sqrt((((x - centerX).toDouble()).pow(2.0) + ((y - centerY).toDouble()).pow(2.0)))
+        //if it is bigger than radius return false
         if (result > radius)
             return false
         return true
