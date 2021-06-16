@@ -11,6 +11,9 @@ class ViewModel() : ViewModel() {
     val ip = MutableLiveData<String>()
     val port = MutableLiveData<String>()
     private var model: Model = Model()
+    private val centerX: Int = 570
+    private val centerY: Int = 400
+    private val radius: Int = 445
 
     @Volatile
     var connected = false
@@ -31,13 +34,12 @@ class ViewModel() : ViewModel() {
     fun disconnect() {
         binding.connectButton.visibility = View.VISIBLE
         binding.disconnectButton.visibility = View.INVISIBLE
+        binding.rudderSeek.progress = 50
+        binding.throttleSeek.progress = 0
         model.disconnect()
     }
 
     fun setJoyStick(x: Float, y: Float) {
-        val centerX = 550
-        val centerY = 550
-        val radius = 500
         val currX = (x - centerX) / radius
         val currY = (y - centerY) / radius
         Log.i("normal", "normalize value : $currX, $currY")
@@ -50,29 +52,21 @@ class ViewModel() : ViewModel() {
 
     fun setThrottle(throttle: Int) {
         if (connected) {
-            Thread{
-                var tmp =  throttle.toDouble() / (100).toDouble()
-                Log.i("Throttle", "$tmp" )
+            Thread {
+                val tmp = throttle.toDouble() / (100).toDouble()
+                Log.i("Throttle", "$tmp")
                 model.setThrottle(tmp)
             }.start()
         }
     }
 
     fun setRudder(rudder: Int) {
-        if (connected){
-            Thread{
-                var tmp =  (rudder - 50).toDouble() / (50).toDouble()
+        if (connected) {
+            Thread {
+                val tmp = (rudder - 50).toDouble() / (50).toDouble()
                 model.setRudder(tmp)
             }.start()
         }
-    }
-
-    private fun isValid(x: Float, y: Float): Boolean {
-        if (x < -345 || x > 720)
-            return false
-        if (y < -345 || y > 720)
-            return false
-        return true
     }
 }
 

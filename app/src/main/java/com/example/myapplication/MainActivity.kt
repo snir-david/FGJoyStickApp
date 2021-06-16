@@ -10,10 +10,16 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.databinding.ActivityMainBinding
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var vm: ViewModel
+    private var radius: Int = 445
+    private var centerX: Int = 570
+    private var centerY: Int = 400
+
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,8 +43,10 @@ class MainActivity : AppCompatActivity() {
                 MotionEvent.ACTION_MOVE -> {
                     val y = event.y
                     val x = event.x
-                    vm.setJoyStick(x, y)
-                    binding.joystickCenter.animate().x(x).y(y + offset).setDuration(0).start()
+                    if (inBound(x, y)) {
+                        vm.setJoyStick(x, y)
+                        binding.joystickCenter.animate().x(x).y(y + offset).setDuration(0).start()
+                    }
                 }
                 MotionEvent.ACTION_UP -> {
 
@@ -103,6 +111,11 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-
+    private fun inBound(x: Float, y: Float): Boolean {
+        val result = sqrt((((x - centerX).toDouble()).pow(2.0) + ((y - centerY).toDouble()).pow(2.0)))
+        if (result > radius)
+            return false
+        return true
+    }
 }
 
