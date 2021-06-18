@@ -1,4 +1,5 @@
-package com.example.myapplication
+package com.example.myapplication.view
+
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
@@ -6,9 +7,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.widget.SeekBar
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.R
+import com.example.myapplication.viewModel.ViewModel
 import com.example.myapplication.databinding.ActivityMainBinding
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -72,6 +74,7 @@ class MainActivity : AppCompatActivity() {
         //rotate throttle seek bar
         binding.throttleSeek.rotation = 90F
     }
+
     /*** Binding seek progress with throttle value***/
     private fun throttleBinding() {
         //setting up onChange Listener for throttle
@@ -103,17 +106,11 @@ class MainActivity : AppCompatActivity() {
 
             override fun onStartTrackingTouch(seek: SeekBar) {}
             override fun onStopTrackingTouch(seek: SeekBar) {
-                // write custom code for progress is stopped
-                Toast.makeText(
-                    this@MainActivity,
-                    "Progress is: " + seek.progress + "%",
-                    Toast.LENGTH_SHORT
-                ).show()
-                Log.i("Rudder", "${seek.progress}")
                 vm.setRudder(seek.progress)
             }
         })
     }
+
     /*** checking if new joystick position is valid***/
     private fun inBound(x: Float, y: Float): Boolean {
         //calculating distance between current point to the middle of joystick center

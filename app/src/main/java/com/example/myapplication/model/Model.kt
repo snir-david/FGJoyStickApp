@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.model
 
 import java.io.PrintWriter
 import java.net.InetSocketAddress

@@ -1,9 +1,9 @@
-package com.example.myapplication
+package com.example.myapplication.viewModel
 
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.myapplication.model.Model
 import com.example.myapplication.databinding.ActivityMainBinding
 
 

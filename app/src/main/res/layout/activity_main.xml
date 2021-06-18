@@ -3,7 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="viewModel"
-                  type="com.example.myapplication.ViewModel"/>
+                  type="com.example.myapplication.viewModel.ViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container"
@@ -76,8 +76,8 @@
                 app:layout_constraintVertical_bias="0.038" android:visibility="invisible"/>
 
         <ImageView
-                android:layout_width="330dp"
-                android:layout_height="330dp" app:srcCompat="@drawable/joystick" android:id="@+id/joystick"
+                android:layout_width="322dp"
+                android:layout_height="340dp" app:srcCompat="@drawable/joystick" android:id="@+id/joystick"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.802"
