@@ -4,24 +4,17 @@ package com.example.myapplication.view
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.MotionEvent
 import android.widget.SeekBar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.R
 import com.example.myapplication.viewModel.ViewModel
 import com.example.myapplication.databinding.ActivityMainBinding
-import kotlin.math.pow
-import kotlin.math.sqrt
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), IJoystick {
     private lateinit var binding: ActivityMainBinding
     private lateinit var vm: ViewModel
-    private var radius: Int = 445
-    private var centerX: Int = 570
-    private var centerY: Int = 400
-
+    private lateinit var joystick: Joystick
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,42 +30,23 @@ class MainActivity : AppCompatActivity() {
             this.viewModel = vm
         }
         vm.binding = binding
-        //set on - onTouch Listener for joystick movement
-        this.binding.joystick.setOnTouchListener { v, event ->
-            //offset for Y AXIS
-            val offset = 1000
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    Log.i("MainActivity", "image Position is : ${event.x} , ${event.y} and View is : ${v.x}, ${v.y}")
-                }
-                MotionEvent.ACTION_MOVE -> {
-                    val y = event.y
-                    val x = event.x
-                    //check if new x and y are in joystick circle
-                    if (inBound(x, y)) {
-                        vm.setJoyStick(x, y)
-                        binding.joystickCenter.animate().x(x).y(y + offset).setDuration(0).start()
-                    }
-                }
-                MotionEvent.ACTION_UP -> {
-
-                }
-            }
-            true
-        }
-        //binding throttle and rudder
-        throttleBinding()
-        rudderBinding()
         //initialize component
         initComp()
     }
 
     private fun initComp() {
+        joystick = Joystick(this)
         //setting rudder to middle
         binding.rudderSeek.progress = 50
         binding.throttleSeek.progress = 0
         //rotate throttle seek bar
         binding.throttleSeek.rotation = 90F
+        vm.centerX = joystick.centerX.toDouble()
+        vm.centerY = joystick.centerY.toDouble()
+        vm.radius = joystick.radiusBase.toDouble()
+        //binding throttle and rudder
+        throttleBinding()
+        rudderBinding()
     }
 
     /*** Binding seek progress with throttle value***/
@@ -111,14 +85,9 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    /*** checking if new joystick position is valid***/
-    private fun inBound(x: Float, y: Float): Boolean {
-        //calculating distance between current point to the middle of joystick center
-        val result = sqrt((((x - centerX).toDouble()).pow(2.0) + ((y - centerY).toDouble()).pow(2.0)))
-        //if it is bigger than radius return false
-        if (result > radius)
-            return false
-        return true
+    /*** Binding joystick with aileron and elevator values***/
+    override fun onChange(x: Double, y: Double) {
+        vm.setJoyStick(x, y)
     }
 }
 

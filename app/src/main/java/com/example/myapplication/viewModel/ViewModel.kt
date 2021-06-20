@@ -1,5 +1,6 @@
 package com.example.myapplication.viewModel
 
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,9 +13,9 @@ class ViewModel() : ViewModel() {
     val ip = MutableLiveData<String>()
     val port = MutableLiveData<String>()
     private var model: Model = Model()
-    private val centerX: Int = 570
-    private val centerY: Int = 400
-    private val radius: Int = 445
+    var centerX: Double = 0.0
+    var centerY: Double = 0.0
+    var radius: Double = 0.0
     lateinit var binding: ActivityMainBinding
 
     @Volatile
@@ -47,13 +48,13 @@ class ViewModel() : ViewModel() {
     }
 
     /*** Sending joystick position to the Model ***/
-    fun setJoyStick(x: Float, y: Float) {
+    fun setJoyStick(x: Double, y: Double) {
         //normalize value for FG
         val currX = (x - centerX) / radius
         val currY = (y - centerY) / radius
         if (connected) {
             Thread {
-                model.setJoyStick(currX.toDouble(), currY.toDouble())
+                model.setJoyStick(currX, currY)
             }.start()
         }
     }
