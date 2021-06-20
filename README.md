@@ -35,4 +35,4 @@ If you are a developer you can find full documentation of functions, variables, 
 
 ## Video  
 
-Here you can find a link to our demo video - [link](https://youtu.be/6wdI9SiAkvA).  
+Here you can find a link to our demo video - [link](https://youtu.be/Ox2uRGX0ASA).  
