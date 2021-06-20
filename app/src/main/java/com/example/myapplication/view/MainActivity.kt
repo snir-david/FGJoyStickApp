@@ -42,9 +42,6 @@ class MainActivity : AppCompatActivity(), IJoystick {
         binding.throttleSeek.progress = 0
         //rotate throttle seek bar
         binding.throttleSeek.rotation = 90F
-        vm.centerX = joystick.centerX.toDouble()
-        vm.centerY = joystick.centerY.toDouble()
-        vm.radius = joystick.radiusBase.toDouble()
         //binding throttle and rudder
         throttleBinding()
         rudderBinding()

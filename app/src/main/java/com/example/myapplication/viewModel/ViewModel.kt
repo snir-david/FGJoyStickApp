@@ -13,9 +13,9 @@ class ViewModel() : ViewModel() {
     val ip = MutableLiveData<String>()
     val port = MutableLiveData<String>()
     private var model: Model = Model()
-    var centerX: Double = 0.0
-    var centerY: Double = 0.0
-    var radius: Double = 0.0
+    var centerX: Double = 612.5
+    var centerY: Double = 612.5
+    var radius: Double = 408.0
     lateinit var binding: ActivityMainBinding
 
     @Volatile
@@ -52,6 +52,7 @@ class ViewModel() : ViewModel() {
         //normalize value for FG
         val currX = (x - centerX) / radius
         val currY = (y - centerY) / radius
+        Log.i("VM", "X: $currX, Y: $currY")
         if (connected) {
             Thread {
                 model.setJoyStick(currX, currY)

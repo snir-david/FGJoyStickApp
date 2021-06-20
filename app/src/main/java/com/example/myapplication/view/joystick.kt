@@ -18,7 +18,7 @@ class Joystick : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
     var centerX = 0f
     var centerY = 0f
     var radiusBase = 0f
-    private var radiusH = 0f
+    private var radiusKnob = 0f
 
     /***constructor for joystick***/
     constructor(context: Context?) : super(context) {
@@ -49,7 +49,7 @@ class Joystick : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
         centerX = width.toFloat() / 2
         centerY = height.toFloat() / 2
         radiusBase = width.coerceAtMost(height).toFloat() / 3
-        radiusH = width.coerceAtMost(height).toFloat() / 6
+        radiusKnob = width.coerceAtMost(height).toFloat() / 6
     }
 
     /***draw joystick on canvas***/
@@ -65,7 +65,7 @@ class Joystick : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
             canvas.drawCircle(centerX, centerY, radiusBase, paintColor)
             //draw the knob - purple
             paintColor.setARGB(255, 140, 100, 235)
-            canvas.drawCircle(x, y, radiusH, paintColor)
+            canvas.drawCircle(x, y, radiusKnob, paintColor)
             //show the drawing to user
             holder.unlockCanvasAndPost(canvas)
         }
