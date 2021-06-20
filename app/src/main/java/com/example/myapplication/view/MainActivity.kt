@@ -12,6 +12,7 @@ import com.example.myapplication.viewModel.ViewModel
 import com.example.myapplication.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), IJoystick {
+    /***Data Members***/
     private lateinit var binding: ActivityMainBinding
     private lateinit var vm: ViewModel
     private lateinit var joystick: Joystick

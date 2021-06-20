@@ -13,7 +13,8 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 class Joystick : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
-    var listener: IJoystick? = null
+    /***Data Members***/
+    lateinit var listener: IJoystick
     var centerX = 0f
     var centerY = 0f
     var radiusBase = 0f
