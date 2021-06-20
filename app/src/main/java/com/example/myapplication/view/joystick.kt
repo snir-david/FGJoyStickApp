@@ -14,7 +14,7 @@ import kotlin.math.sqrt
 
 class Joystick : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
     /***Data Members***/
-    lateinit var listener: IJoystick
+    lateinit var listener: IJoystickListener
     var centerX = 0f
     var centerY = 0f
     var radiusBase = 0f
@@ -24,7 +24,7 @@ class Joystick : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
     constructor(context: Context?) : super(context) {
         holder.addCallback(this)
         setOnTouchListener(this)
-        if (context is IJoystick) {
+        if (context is IJoystickListener) {
             listener = context
         }
     }
@@ -32,7 +32,7 @@ class Joystick : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
     constructor(context: Context?, att: AttributeSet?, style: Int) : super(context, att, style) {
         holder.addCallback(this)
         setOnTouchListener(this)
-        if (context is IJoystick) {
+        if (context is IJoystickListener) {
             listener = context
         }
     }
@@ -40,7 +40,7 @@ class Joystick : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
     constructor(context: Context?, att: AttributeSet?) : super(context, att) {
         holder.addCallback(this)
         setOnTouchListener(this)
-        if (context is IJoystick) {
+        if (context is IJoystickListener) {
             listener = context
         }
     }
@@ -73,6 +73,7 @@ class Joystick : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
 
     override fun surfaceCreated(holder: SurfaceHolder) {
         setupPosition()
+        listener.onLoad(centerX.toDouble(), centerY.toDouble(), radiusBase.toDouble())
         drawJoystick(centerX, centerY)
     }
 

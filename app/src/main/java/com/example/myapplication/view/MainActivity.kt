@@ -11,7 +11,7 @@ import com.example.myapplication.R
 import com.example.myapplication.viewModel.ViewModel
 import com.example.myapplication.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(), IJoystick {
+class MainActivity : AppCompatActivity(), IJoystickListener {
     /***Data Members***/
     private lateinit var binding: ActivityMainBinding
     private lateinit var vm: ViewModel
@@ -86,6 +86,12 @@ class MainActivity : AppCompatActivity(), IJoystick {
     /*** Binding joystick with aileron and elevator values***/
     override fun onChange(x: Double, y: Double) {
         vm.setJoyStick(x, y)
+    }
+
+    override fun onLoad(centerX: Double, centerY: Double, radius: Double) {
+        vm.centerX = centerX
+        vm.centerY = centerY
+        vm.radius = radius
     }
 }
 
