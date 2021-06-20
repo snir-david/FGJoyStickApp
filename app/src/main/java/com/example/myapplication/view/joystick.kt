@@ -19,7 +19,7 @@ class Joystick : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
     var radiusBase = 0f
     private var radiusH = 0f
 
-    //constructor for joystick
+    /***constructor for joystick***/
     constructor(context: Context?) : super(context) {
         holder.addCallback(this)
         setOnTouchListener(this)
@@ -51,6 +51,7 @@ class Joystick : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
         radiusH = width.coerceAtMost(height).toFloat() / 6
     }
 
+    /***draw joystick on canvas***/
     private fun drawJoystick(x: Float, y: Float) {
         if (holder.surface.isValid) {
             // create canvas object for drawing
@@ -76,6 +77,7 @@ class Joystick : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {}
     override fun surfaceDestroyed(holder: SurfaceHolder) {}
+    /***onTouch event for joystick***/
     override fun onTouch(v: View, e: MotionEvent): Boolean {
         //checking if view is joystick
         if (v == this) {
