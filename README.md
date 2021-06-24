@@ -4,10 +4,9 @@
 ![enter image description here](https://github.com/snir-david/JoyStickAndroid/blob/master/pictures/PreviewApp.png?raw=true)
 Our App is a controller for FlightGear Simulator. After open FG (make sure to enter the right settings), the user can connect to the FG server and start to fly the plane!
 ## Directory hierarchy  
-**Model** - this class is responsible for connecting to the server and send data to the simulator.
-  **ViewModel**- this class is responsible for getting data from View (using data binding) and process it for the Model class.
-**View** - this class is responsible for creating views, getting data, and manipulate the view's component.content/uploads/2019/08/airplane-travel-tip.jpg)  
-
+**Model** - this class is responsible for connecting to the server and send data to the simulator.\
+**ViewModel**- this class is responsible for getting data from View (using data binding) and process it for the Model class.\
+**View** - this class is responsible for creating views, getting data, and manipulate the view's component.  
 
 ## Installation and Running application  
 Before running our app you need to download and install the FlightGear application - you can find [download link here](https://www.flightgear.org/download/). For more information about FlightGear, you can find [here](https://www.flightgear.org/)
@@ -15,9 +14,6 @@ Before running our app you need to download and install the FlightGear applicati
  - **For Developers** - install a proper IDE for the Android Application (we used Intellji but you can use any other software). You will need to install a few programs and modules-   
  - [ ] **Android SDK** - install android SDK (usually install with IDE or when trying to open an android project in the IDE).
  - [ ] **Virtual Phone (using AVD)** -  install an emulator to emulate android phones on the computer. Also can be done using IDE. 
- - **For Users** -  install Joystick.apk on your Android phone. 
- After installation - run the app and enter server IP and Port (more details down here).
-- **For both Users and Developers -**
  - [ ] **FlightGear Settings** -  make sure to put this line in flightgear setting so you can connect to the server from the app - 
  >     --telnet=socket,in, 10,127.0.0.1,6400 ,tcp
 this line means the FG opens a server on the localhost (127.0.0.1) it runs on port 6400.
