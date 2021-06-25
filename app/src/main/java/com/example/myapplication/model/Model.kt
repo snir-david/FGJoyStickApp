@@ -1,5 +1,6 @@
 package com.example.myapplication.model
 
+import android.util.Log
 import java.io.PrintWriter
 import java.net.InetSocketAddress
 import java.net.Socket
@@ -8,7 +9,6 @@ class Model {
     /***Data Members***/
     private lateinit var client: Socket
     private lateinit var outPrinter: PrintWriter
-
     @Volatile
     var connected = false
 

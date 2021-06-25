@@ -11,7 +11,9 @@
             android:supportsRtl="true"
             android:networkSecurityConfig="@xml/network"
             android:theme="@style/Theme.MyApplication">
-        <activity android:name=".view.MainActivity">
+        <activity android:name=".view.MainActivity"
+        android:label="Flight Gear JoyStick"
+                  android:icon="@drawable/sideplane">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
