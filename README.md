@@ -12,7 +12,7 @@ Our App is a controller for FlightGear Simulator. After open FG (make sure to en
 Before running our app you need to download and install the FlightGear application - you can find [download link here](https://www.flightgear.org/download/). For more information about FlightGear, you can find [here](https://www.flightgear.org/)
 ![enter image description here](https://github.com/snir-david/JoyStickAndroid/blob/master/pictures/jetblue1.0.jpg?raw=true)
  - **For Developers** - install a proper IDE for the Android Application (we used Intellji but you can use any other software). You will need to install a few programs and modules-   
- - [ ] **Android SDK** - install android SDK (usually install with IDE or when trying to open an android project in the IDE). Code was wrriten to API 30. 
+ - [ ] **Android SDK** - install android SDK (usually install with IDE or when trying to open an android project in the IDE). Code was wrriten to API 27 but should work for lower API's too. 
  - [ ] **Virtual Phone (using AVD)** -  install an emulator to emulate android phones on the computer. Also can be done using IDE. 
  - [ ] **FlightGear Settings** -  make sure to put this line in flightgear setting so you can connect to the server from the app - 
  >     --telnet=socket,in, 10,127.0.0.1,6400 ,tcp
