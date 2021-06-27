@@ -22,7 +22,7 @@ you can find server IP address using the command -
 > ipconfig
 
 Find the server IPv4 address - it should look something like this - 
-![enter image description here](https://github.com/snir-david/JoyStickAndroid/blob/master/pictures/ipconfig.png?raw=true)
+![enter image description here](https://github.com/snir-david/JoyStickAndroid/blob/master/pictures/ipconfig.png?raw=true)\
 set up the port to be the same port as FG settings.
 ## Documentation  
 
